@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+            <h1>Post Create</h1>
+            <!-- Formda metot belirtmeyi unutma. Eğer aramada url gözükmeyecekse metot post olmalı-->
+            <!-- Her input bilgisinin name bilgisi olmalıdır -->
+            <!-- CSRF bilgisi olmalıdır -->
+            <!-- Button type submit olmalı -->
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Title</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="title" required>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Image</label>
+                  <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="image" required>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Description</label>
+                  <textarea type="text" class="form-control" rows="20" id="exampleInputEmail1" aria-describedby="emailHelp" name="description" required></textarea>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary d-block ms-auto px-3 py-2 mb-5">Send</button>
+              </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+
+
+    

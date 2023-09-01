@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<section class="container w-50">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-3 border-0" style="width: 100%;">
+                <h1 class="card-title">{{ post.title }}</h1>
+                <div class="d-flex mt-3">
+                    <h5 class="card-title">{{ post.user.username }}</h5>
+                    <p class="card-title ms-2">{{ post.date|date:'d-m-Y' }}</p>
+                </div>
+                <img src="{{ post.image.url }}" class="card-img-top d-block m-auto mt-5" alt="PostImage">
+                <pre style="white-space: pre-wrap;" class="card-text mt-5 w-100">{{ post.description }}</pre>
+            </div>
+
+
+            <h1>COMMENTS</h1>
+            
+            
+            {% if comments %}
+            {% for comment in comments %}
+            <div class="card mt-3" style="width: 100%;">
+                <div class="d-flex">
+                <h5 class="card-title">{{ comment.user.username }}</h5>
+                <p class="card-title ms-2">{{ comment.date|date:'d-m-Y' }}</p>
+                </div>
+                <div class="card-body d-flex">
+                        <p class="card-text">{{ comment.text }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p class="fs-5 text-success">Do the first to comment</p>
+            {% endif %}
+                
+                
+
+            <form method="POST" class="mt-3">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Comment</label>
+                    <textarea type="text" rows="10" class="form-control border border-1 border-dark" id="exampleInputEmail1" aria-describedby="emailHelp" name="comment" required></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary mb-3 px-3 py-2 d-block ms-auto">Send</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock content %}

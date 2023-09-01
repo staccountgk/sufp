@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<section class="container">
+    <div class="row">
+        <div class="col-sm-8 mt-sm-5 mt-4">
+            {% for post in posts %}
+            <a href="{% url 'post_detay' post.id %}" class="text-decoration-none">
+                <div class="card mt-5" style="width: 100%;">
+                        <div class="d-flex m-2">
+                        <h5 class="card-title">{{ post.user.username }}</h5>
+                        <p class="card-title ms-2">{{ post.date|date:'d-m-Y' }}</p>
+                        </div>
+                    <div class="card-body d-flex">
+                        <div class="w-75">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.description|truncatechars:300 }}</p>
+                        </div>
+                        
+
+                            <img src="{{ post.image.url }}" style="width: 200px;" class="card-img-top ms-2" alt="PostImage">
+
+                    </div>
+              </div>
+            </a>
+            {% endfor %}
+        </div>
+        
+        {% if posts_ordey %}
+        <div class="col-sm-4 mt-sm-5 pt-2">
+            <h4>Staff Picks</h4>
+            {% for post in posts_ordey %}
+            <a href="{% url 'post_detay' post.id %}" class="text-decoration-none">
+                <div class="card mt-2" style="width: 100%;">
+                        <div class="d-flex m-2">
+                        <h5 class="card-title">{{ post.user.username }}</h5>
+                        <p class="card-title ms-2">{{ post.date|date:'d-m-Y' }}</p>
+                        </div>
+                    <div class="card-body d-flex">
+                        <div class="w-75">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                        </div>
+                    </div>
+              </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+
+{% endblock content %}

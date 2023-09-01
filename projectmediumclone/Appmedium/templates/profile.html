@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+      <h1>ABOUT</h1>
+      <hr>
+      <p>{{ profil.about }}</p>
+      <h1>ARTICLES</h1>
+      <hr>
+      {% for post in posts %}
+      <a href="{% url 'post_detay' post.id %}" class="text-decoration-none">
+        <div class="card mt-5" style="width: 100%;">
+                <div class="d-flex m-2">
+                <h5 class="card-title">{{ post.user.username }}</h5>
+                <p class="card-title ms-2">{{ post.date|date:'d-m-Y' }}</p>
+                </div>
+            <div class="card-body d-flex">
+                <div class="w-75">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.description|truncatechars:300 }}</p>
+                </div>
+                    <img src="{{ post.image.url }}" style="width: 200px;" class="card-img-top ms-2" alt="PostImage">
+            </div>
+      </div>
+    </a>
+      {% endfor %}
+        
+    </div>
+    <div class="col-3 mt-3">
+      <div style="width: 100%;">
+        <img src="{{ profil.image.url }}" class="card-img-top" style="border-radius: 50%;">
+        <div class="card-body">
+          <h5 class="card-title text-center mt-3">{{ profil.user.username }}</h5>
+        </div>
+      </div>
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary mt-3 d-block m-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Profil Edit
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Profil Edit</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+      <div class="modal-body">
+        About
+        <textarea name="about" class="form-control" id="">{{ profil.about }}</textarea>
+        Profil Image
+        <input type="file" name="image" class="form-control">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Send</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+</div>
+{% endblock content %}
